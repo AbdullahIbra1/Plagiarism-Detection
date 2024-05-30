@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    {% block content %}
+
+    <div class="mmain">
+        <h2>معلومات الحساب</h2>
+        <div class="card">
+            <div dir="rtl" class="card-body">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>الاسم</td>
+                            <td>:</td>
+                            <td>{{ username }}</td>
+                        </tr>
+                        <tr>
+                            <td>الرقم السري</td>
+                            <td>:</td>
+                            <td>{{ password }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+    <script src="{{url_for('static', filename='/js/scripts.js')}}"></script>
+
+    <title>نظام التحقق من الاقتباس</title>
+    
+</head>
+<body>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div style='position: relative;
+                top: 320px;
+                right: 450px;
+               color:red;'>{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+    <div class="flip-container">
+        
+        <div class="flipper" id="flipper">
+            <div class="front">
+               
+                <a class="flipbutton" id="loginButton" href="#">تسجيل الدخول للمشرفين</a>
+            </div>
+            
+            <div class="back">
+                <h1 class="title">تسجيل الدخول</h1>
+                <form method="POST" enctype="multipart/form-data" action="/adminlogin">
+                    <input type="text" name="username" placeholder="اسم المستخدم" />
+                    <input type="password" name="password" placeholder="الرقم السري" />
+                    <button type="submit" class="btn theme-btn btn-block">الدخول</button>
+              
+                </form>
+                <a class="flipbutton" id="registerButton" href="#">عودة</a>
+            </div>
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="flip-container">
+            <div class="flipper" id="flipper1">
+                <div class="front">
+                   
+                    
+                    <a class="flipbutton" id="loginButton1" href="#">تسجيل الدخول للمستخدمين</a>
+                </div>
+                
+    
+    
+                
+                <div class="back">
+                    <h1 class="title">تسجيل الدخول</h1>
+                    <form method="POST" enctype="multipart/form-data" action="/login">
+                        <input type="text" name="username" id="username" placeholder="اسم المستخدم">
+                        <input type="password" name="password" id="password" placeholder="الرقم السري">
+                        <button type="submit" class="btn theme-btn btn-block">الدخول</button>
+
+                    </form>
+                    <a class="flipbutton" id="registerButton1" href="#">عودة</a>
+                    <a href="{{ url_for('register') }}" >ليس لديك حساب؟</a>
+                </div>
+            </div>
+            </div>
+    </div>
+</body>
+<script src="{{url_for('static', filename='/js/scripts.js')}}"></script>
+
+</html>

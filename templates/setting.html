@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<head>
+	<style>
+		.slider-container {
+			width: 30%;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		/* Optional: Add some styles to make the slider look better */
+		.slider {
+			width: 37%;
+		}
+
+
+		  .percentage-input {
+				  width: 62px;
+				  text-align: center;
+				  margin-right: -44px;
+				  padding: 6px;
+				  border-radius: 5px;
+			  }
+		  }
+		.percentage-input1 {
+			width: 50px;
+			text-align: center;
+			  margin-right: -34px;
+			padding: 6px;
+			  border-radius: 5px;
+		  }
+		.dd{
+			margin-right: -64px;
+			  width: 150px;
+			  height: 10px;
+			  margin-left: 60px;
+			}
+		.ddd{
+			margin-left:370px;
+			margin-bottom: -120;
+		}
+		.dddd{
+			width: 23px;
+			height: 10px;
+			margin-left: 70px;
+			margin-bottom:30px;
+		}
+		.sp{
+			margin-top:-150px;
+			margin-right:10px;
+		}
+		.spp{
+			margin-top:-104px;
+		}
+	
+		.ee{
+			margin-top: 30px;
+			  display: block;
+			  margin-left: 1240;
+			}
+		}
+	
+	
+	</style>
+	
+</head>
+
+<form method="POST" action="/saveSettings" id='validationForm'>
+	<div style='position: absolute;
+		  		left: 50%;
+		  		top: 50%;
+		  		transform: translate(-50%, -50%);'>
+	{% if session.percentageStatus==1 %}
+	<input type="range" id="slider" name="slider" min="0" max="100" step="1" value={{session.percentage}} class="slider">
+	<input type="number" id="percentageInput" name="percentageInput" min="0" max="100" step="1" value={{session.percentage}} class="percentage-input">
+	{% else %}
+	<input type="range" id="slider" name="slider" min="0" max="100" step="1" value="95" class="slider">
+	<input type="number" id="percentageInput" name="percentageInput" min="0" max="100" step="1" value='95' class="percentage-input">
+	{% endif %}
+
+	
+	<label class='dd' for="slider">:نسبة التشابة المطلوبة </label>
+	<br>
+	
+	<label class='ddd'>:عدد الكلمات</label>
+	<br>
+	{% if session.minStatus==1 %}
+	<input type="number" id="percentageInput1" name="percentageInput1" min="1" max="5" step="1" value={{session.min}} class="percentage-input1" oninput="validateMinMax()" style='width: 62px;
+		  text-align: center;
+		  margin-right: -35px;
+		  padding: 6px;
+		  border-radius: 5px;'>
+	{% else %}
+	<input type="number" id="percentageInput1" name="percentageInput1" min="1" max="5" step="1" value="2" class="percentage-input1" style='width: 62px;
+		  text-align: center;
+		  margin-right: -35px;
+		  padding: 6px;
+		  border-radius: 5px;'>
+	{% endif %}
+	<label class='dddd' for="slider">من</label>
+	<br>
+	{% if session.maxStatus==1 %}
+	<input type="number" id="percentageInput2" name="percentageInput2" min="1" max="5" step="1" value={{session.max}} class="percentage-input" oninput="validateMinMax()" >
+	{% else %}
+	<input type="number" id="percentageInput2" name="percentageInput2" min="1" max="5" step="1" value="4" class="percentage-input" oninput="validateMinMax()">
+	{% endif %}
+	<label class='dddd' for="slider">الى</label>
+	<output id="sliderValue1"></output>
+	<output id="sliderValue2"></output>
+	<br>
+	<br>
+	<div>
+	<button style ='width: 100px;'class="btn btn-primary btn-sm">حفظ</button>
+	</div>
+</form>
+
+</div>
+
+
+
+<script>
+	const slider = document.getElementById('slider');
+	const percentageInput = document.getElementById('percentageInput');
+	const output = document.getElementById('sliderValue');
+
+	// Update slider value and percentage input value when slider changes
+	slider.addEventListener('input', function() {
+	  percentageInput.value = this.value;
+	  output.textContent = this.value;
+	});
+
+	// Update slider value and percentage input value when percentage input changes
+	percentageInput.addEventListener('input', function() {
+	  slider.value = this.value;
+	  output.textContent = this.value;
+	});
+	
+	function validateMinMax() {
+			var minInput = document.getElementById('percentageInput1');
+			var maxInput = document.getElementById('percentageInput2');
+
+			if (parseFloat(minInput.value) > parseFloat(maxInput.value)) {
+				minInput.setCustomValidity('يجب ان يكون العدد اقل من العدد الاكبر');
+			} else {
+				minInput.setCustomValidity('');
+			}
+		}
+</script>
+{% endblock %}

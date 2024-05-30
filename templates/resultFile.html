@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
+	<title>results</title>
+</head>
+<body>
+
+{% block content %}
+
+<div >
+<div>
+  <h1 id="t1">نسبة التشابه  </h1>
+  <label class="ddff" id="t2"> {{per}}% <progress class="progress-v" max="100" value='{{per}}'>{{per}}%</progress></label>
+  </div>
+  <br>
+  <button id="toPDF">تحميل التقرير</button>
+</div>
+
+<div class="m-5" id="t3" >
+
+	<table class="table-sm table-bordered mx-auto w-50" id="example" dir="rtl" style="float: left;">
+	 <caption style = "caption-side: top; text-align: center; color:black;"> <strong>نتيجة التشابة حسب النسبة المحددة</strong> </caption>
+
+		<thead>
+			<tr>
+				<th scope="col" onclick="sortColumn('num')">#  <i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+				<th scope="col" onclick="sortColumn('db_text')">النص من الملف الثاني </th>
+				<th scope="col" onclick="sortColumn('file_text')">النص من الملف الاول</th>
+				<th scope="col" onclick="sortColumn('match_percentage')">نسبة التطابق  <i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in temp %}
+			<tr>
+				{% for cell in row %}
+					{% if loop.index0 == 3 %}
+						<td class="text-center match_percentage {% if cell|float > 97 %}high{% else %}low{% endif %}">{{ cell }}</td>
+					{% else %}
+						<td class="text-center">{{ cell }}</td>
+					{% endif %}
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="m-51" id="t31" >
+  <table class="table-sm table-bordered mx-auto w-50" id="example1" dir="rtl" style="float: left;" >
+	<caption style = "caption-side: top; text-align: center; color:black;"> <strong>يوجد تشابه بالاسم المختصر</strong> </caption>
+
+	  <thead>
+		  <tr>
+			  <th scope="col" onclick="sortColumn1('num1')">#  <i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+			  <th scope="col" onclick="sortColumn1('db_text1')">النص من الملف الثاني </th>
+			  <th scope="col" onclick="sortColumn1('file_text1')">النص من الملف الاول</th>
+			  <th scope="col" onclick="sortColumn1('match_percentage1')">نسبة التطابق  <i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+		  </tr>
+	  </thead>
+	  <tbody>
+		  {% for row in temp2 %}
+		  <tr>
+			  {% for cell in row %}
+				  {% if loop.index0 == 3 %}
+					  <td class="text-center match_percentage {% if cell|float > 97 %}high{% else %}low{% endif %}">{{ cell }}</td>
+				  {% else %}
+					  <td class="text-center">{{ cell }}</td>
+				  {% endif %}
+			  {% endfor %}
+		  </tr>
+		  {% endfor %}
+	  </tbody>
+  </table>
+</div>
+
+
+
+{% endblock %}
+</body>
+</html>

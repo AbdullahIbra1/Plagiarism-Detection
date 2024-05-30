@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
+
+    </head>
+<body>
+
+
+{% block content %}
+
+<h2>إضافة نص لقاعدة البيانات</h2>
+<h2 style="color: rgba(255, 0, 0, 0.596);">{{ msg }}</h2>
+<h2 style="color: rgba(20, 189, 20, 0.596);">{{ msg1 }}</h2>
+
+<form method="post" action="/addText">
+    <textarea  rows="3" name="text" maxlength="300" placeholder="النص" class="w-25" required></textarea>
+    <div>عدد الحروف المسموح بها: 200</div>
+        <button type="submit" class="btn theme-btn border ">أضف</button>
+        <a href="/"><button type="button" class="btn theme-btn border">الخلف</button></a>
+</form>
+
+
+
+<h2><input type="button" value="استعراض قاعدة البيانات" onClick="toggleTable()" class="btn theme-btn border mx-auto btn-primary w-25 text-light" id = "btnName"></h2>
+<h2><button type="button" id="btnDeleteChecked" class="btn btn-danger mb-2 hidden w-25 text-light">حذف الصفوف المحددة</button></h2>
+<form id="deleteForm" method="post" action="/removeDB">
+<table class="table-sm table-bordered mx-auto w-25 hidden" id="example" dir="rtl">
+    <thead>
+    <tr>
+        <th scope="col" >#</th>
+        <th scope="col" >النص من قاعدة البيانات</th>
+        <th scope="col">حذف</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in range (1,lenNames) %}
+    <tr>
+        <td class="text-center ">{{ i }}</td>
+        <td class="text-center ">{{ dbNames[i][1] }}</td>
+        <td class="text-center">  <input type="checkbox" name="row_ids[]" value="{{ dbNames[i][0] }}" class="checkbox_row_delete"></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</form>
+
+<script>
+
+   document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btnDeleteChecked').addEventListener('click', function() {
+        var form = document.getElementById('deleteForm');
+        var checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+        if (checkboxes.length > 0) {
+            form.submit();
+        } else {
+            alert('الرجاء إختيار صف واحد على الاقل');
+        }
+    });
+});
+  </script>
+
+{% endblock %}
+</body>
+</html>

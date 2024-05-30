@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>نظام التحقق من الاقتباس</title>
+
+    <style>
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+        
+        .dropdown-content label {
+          display: block;
+          padding: 10px 15px;
+          cursor: pointer;
+          width: 100%;
+        }
+        
+        .dropdown-content label:hover {
+          background-color: #f1f1f1;
+        }
+        
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+        .element {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+        </style>
+
+
+</head>
+<body>
+    
+
+{% block content %}
+
+<div class="dropdown">
+    <h2>الرجاء اختيار طريقة المقارنة</h2>
+    <div class="dropdown-content">
+      <label style="width: 166px;"><input type="radio" name="options" value="element1"> مقارنة مع قاعدة البيانات </label>
+      <label style="width: 166px;"><input type="radio" name="options" value="element2"> مقارنة مع ملف آخر</label>
+      <label style="width: 166px;"><input type="radio" name="options" value="element3"> مقارنة مع صفحات الويب</label>
+    </div>
+  </div>
+  
+  <div class="element" id="element1">
+
+    <form method="POST" action="/dashboard" enctype="multipart/form-data" class="m-5" id="uploadForm1">
+
+        <div class="mb-3 w-50 mx-auto">
+            <label for="formFileSm" class="form-label">قم برفع الملف</label>
+            <br>
+            <input class="form-control form-control-sm" id="formFileSm" type="file" name = "file">
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm" id="submitButton1">رفع الملف</button>
+    </form>
+
+</div>
+
+
+
+
+<div class="element" id="element2">
+    <form method="POST" action="/dashboard2" enctype="multipart/form-data" class="m-5" id="uploadForm">
+        <div class="mb-3 w-50 mx-auto">
+            <label for="formFileSm1" class="form-label">قم برفع الملف</label>
+            <br>
+            <input class="form-control form-control-sm" id="formFileSm1" type="file" name="file1">
+            <label for="formFileSm2" class="form-label">قم برفع الملف 2</label>
+            <br>
+            <input class="form-control form-control-sm" id="formFileSm2" type="file" name="file2">
+        </div>
+        <button type='submit' class="btn btn-primary btn-sm" id="submitButton">رفع الملف</button>
+    </form>
+</div>
+
+
+
+
+
+  <div class="form-group element" id="element3">
+      <form method="POST" action="/dashboard3" enctype="multipart/form-data" class="m-5" id="uplaodForm3">
+          <label for="exampleFormControlTextarea1">ضع الروابط</label>
+          <div class="d-flex justify-content-center">
+              <div class="col-sm-6">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="urls" id="txtArea"></textarea>
+                  <label for="formFileSm3" class="form-label">قم برفع الملف</label>
+                  <input class="form-control form-control-sm" id="formFileSm3" type="file" name="file3">
+                  <br>
+                  <button type='submit' class="btn btn-primary btn-sm" >فحص</button>
+              </div>
+          </div>
+      </form>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="element" id="emptyElement" style="display: none;"></div>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+  const radioButtons = document.querySelectorAll('input[type="radio"][name="options"]');
+  const elements = document.querySelectorAll('.element');
+  const emptyElement = document.getElementById('emptyElement');
+
+  function toggleElements() {
+    let optionSelected = false;
+    elements.forEach(function(element) {
+      element.style.display = 'none';
+    });
+
+    radioButtons.forEach(function(radioButton) {
+      if (radioButton.checked) {
+        optionSelected = true;
+        const selectedElementId = radioButton.value;
+        const selectedElement = document.getElementById(selectedElementId);
+        if (selectedElement) {
+          selectedElement.style.display = 'block';
+        }
+      }
+    });
+
+    if (!optionSelected) {
+      emptyElement.style.display = 'block';
+    } else {
+      emptyElement.style.display = 'none';
+    }
+  }
+
+  // Initial call to toggle elements based on default selection
+  toggleElements();
+
+  // Add event listeners to radio buttons to toggle elements
+  radioButtons.forEach(function(radioButton) {
+    radioButton.addEventListener('change', toggleElements);
+  });
+});
+
+document.getElementById('uplaodForm3').addEventListener('submit', function(event) {
+    const fileInput3 = document.getElementById('formFileSm3');
+
+    const file3 = fileInput3.files[0];
+
+
+  if (!file3) {
+    alert('يرجى تحديد الملفات قبل الرفع.');
+    event.preventDefault(); // Prevent form submission
+  } else {
+    // Files are selected, allow form submission
+    // You can add additional logic here if needed
+    // For example, display a loading spinner while the files are uploading
+  }
+});
+
+
+document.getElementById('uploadForm1').addEventListener('submit', function(event) {
+  const fileInput1 = document.getElementById('formFileSm');
+  
+  const file1 = fileInput1.files[0];
+
+
+  if (!file1) {
+    alert('يرجى تحديد الملفات قبل الرفع.');
+    event.preventDefault(); // Prevent form submission
+  } else {
+    // Files are selected, allow form submission
+    // You can add additional logic here if needed
+    // For example, display a loading spinner while the files are uploading
+  }
+});
+
+
+
+      
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+  const fileInput1 = document.getElementById('formFileSm1');
+  const fileInput2 = document.getElementById('formFileSm2');
+
+
+  const file1 = fileInput1.files[0];
+  const file2 = fileInput2.files[0];
+
+  if (!file1 || !file2) {
+    alert('يرجى تحديد الملفات قبل الرفع.');
+    event.preventDefault(); // Prevent form submission
+  } else {
+    // Files are selected, allow form submission
+    // You can add additional logic here if needed
+    // For example, display a loading spinner while the files are uploading
+  }
+});
+
+     
+
+        </script>
+
+{% endblock %}
+</body>
+</html>

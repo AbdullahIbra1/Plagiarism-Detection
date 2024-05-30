@@ -1,0 +1,358 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+@page {
+	size: auto;
+	margin: 0;
+}
+
+::after,
+::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+.mmain {
+	margin-top: 2%;
+	margin-left: 29%;
+	font-size: 28px;
+	padding: 0 10px;
+	width: 58%;
+}
+.mmain .card {
+	background-color: #fff;
+	border-radius: 18px;
+	box-shadow: 1px 1px 8px 0 grey;
+	height: auto;
+	margin-bottom: 20px;
+	padding: 20px 0 20px 50px;
+}
+.mmain .card table {
+	border: none;
+	font-size: 16px;
+	height: 270px;
+	width: 80%;
+}
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+h1 {
+	font-weight: 600;
+	font-size: 1.5rem;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+	display: flex;
+}
+
+.main {
+	min-height: 100vh;
+	width: 100%;
+	overflow: hidden;
+	transition: all 0.35s ease-in-out;
+	background-color: #fafbfe;
+}
+
+#sidebar {
+	width: 70px;
+	min-width: 70px;
+	z-index: 1000;
+	transition: all .25s ease-in-out;
+	background-color: #0e2238;
+	display: flex;
+	flex-direction: column;
+}
+
+#sidebar.expand {
+	width: 260px;
+	min-width: 260px;
+}
+
+.toggle-btn {
+	background-color: transparent;
+	cursor: pointer;
+	border: 0;
+	padding: 1rem 1.5rem;
+}
+
+.toggle-btn i {
+	font-size: 1.5rem;
+	color: #FFF;
+}
+
+.sidebar-logo {
+	margin: auto 0;
+}
+
+.sidebar-logo a {
+	color: #FFF;
+	font-size: 1.15rem;
+	font-weight: 600;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span {
+	display: none;
+}
+
+.sidebar-nav {
+	padding: 2rem 0;
+	flex: 1 1 auto;
+}
+
+a.sidebar-link {
+	padding: .625rem 1.625rem;
+	color: #FFF;
+	display: block;
+	font-size: 0.9rem;
+	white-space: nowrap;
+	border-left: 3px solid transparent;
+}
+
+.sidebar-link i {
+	font-size: 1.1rem;
+	margin-right: .75rem;
+}
+
+a.sidebar-link:hover {
+	background-color: rgba(255, 255, 255, .075);
+	border-left: 3px solid #3b7ddd;
+}
+
+.sidebar-item {
+	position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+	position: absolute;
+	top: 0;
+	left: 70px;
+	background-color: #0e2238;
+	padding: 0;
+	min-width: 15rem;
+	display: none;
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+	display: block;
+	max-height: 15em;
+	width: 100%;
+	opacity: 1;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+	border: solid;
+	border-width: 0 .075rem .075rem 0;
+	content: "";
+	display: inline-block;
+	padding: 2px;
+	position: absolute;
+	right: 1.5rem;
+	top: 1.4rem;
+	transform: rotate(-135deg);
+	transition: all .2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+	transform: rotate(45deg);
+	transition: all .2s ease-out;
+}
+
+.ddff{
+	text-align: center;
+}
+
+.progress-v[value] {
+	text-align: center;
+	--color:  /* the progress color */
+	  /* if < 20% "red" */
+	  linear-gradient(green    0 0) 0 /calc(var(--w)*.3 - 100%) 1px,
+	  /* if < 51% "orange" */
+	  linear-gradient(orange 0 0) 0 /calc(var(--w)*.51 - 100%) 1px,
+	  /* else "green" */
+	  red;
+	--background: lightgrey; /* the background color */
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	position: absolute;
+	inset: 0;
+	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+	overflow: hidden;
+	background: var(--background);
+	transform: rotate(-90deg);
+	-webkit-mask: radial-gradient(#0000 59%,#000 60% 70%,#0000 71%)
+  }
+  progress[value]::-webkit-progress-bar {
+	background: var(--background);
+	text-align: center;
+  }
+  progress[value]::-webkit-progress-value {
+	background: var(--color);
+	text-align: center;
+  }
+  progress[value]::-moz-progress-bar {
+	background: var(--color);
+	text-align: center;
+  }
+
+th {
+	cursor: pointer;
+	user-select: none; /* Prevent text selection */
+}
+
+th:active {
+	outline: none; /* Disable focus outline */
+}
+.hidden{
+	display: none;
+	}
+tr:hover{
+	color: white;
+	background-color: rgb(114, 133, 150);
+  }
+
+label {
+	--w: 150px; /* the width*/
+
+	font-size: 20px;
+	font-weight: bold;
+	display: inline-grid;
+	place-content: center;
+	width: var(--w);
+	aspect-ratio: 1;
+	position: relative;
+  }
+
+
+	 /* Set styles for the table and its headers */
+	 #example {
+		border-collapse: collapse;
+		width: 100%;
+
+	}
+
+	#example th,
+	#example td {
+		border: 1px solid #dddddd;
+		text-align: center;
+		padding: 8px;
+	}
+	#example span{
+		border: 1px solid #dddddd;
+		text-align: center;
+		padding: 8px;
+	}
+	#example th {
+		background-color: #0e2238;
+		color: white;
+		cursor: pointer;
+		user-select: none; /* Prevent text selection */
+	}
+
+	#example th:hover {
+		background-color: rgb(114, 133, 150);
+	}
+
+	/* Define styles for the 'match_percentage' column cells */
+	#example td.match_percentage {
+		font-weight: bold;
+	}
+
+	#example td.match_percentage.high {
+		background-color: #b85d5a; /* Light green */
+		color: white;
+	}
+
+	#example td.match_percentage.low {
+		background-color: #dbcd4d; /* Red */
+		color: white;
+	}
+
+
+
+
+
+
+ /* Set styles for the table and its headers */
+ #example1 {
+	border-collapse: collapse;
+	width: 100%;
+
+}
+
+#example1 th,
+#example1 td {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+#example1 span{
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+#example1 th {
+	background-color: #0e2238;
+	color: white;
+	cursor: pointer;
+	user-select: none; /* Prevent text selection */
+}
+
+#example1 th:hover {
+	background-color: rgb(114, 133, 150);
+}
+
+/* Define styles for the 'match_percentage' column cells */
+#example1 td.match_percentage {
+	font-weight: bold;
+}
+
+#example1 td.match_percentage.high {
+	background-color: #b85d5a; /* Light green */
+	color: white;
+}
+
+#example1 td.match_percentage.low {
+	background-color: #dbcd4d; /* Red */
+	color: white;
+}
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
