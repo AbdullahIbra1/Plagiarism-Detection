@@ -50,7 +50,7 @@ def preprocess(text):
     text = re.sub('’', "", text)
     return text
 
-def foo1(text2, text, two, twolength, link,per):
+def check_one(text2, text, two, twolength, link,per):
     lengthOfwords = 0
     for i in tqdm(range(len(text))):
         time.sleep(0)
@@ -63,7 +63,7 @@ def foo1(text2, text, two, twolength, link,per):
                 two.append(f'{txt2},{txt1},{value},{link}')
     twolength.append(lengthOfwords)
     
-def foo2(text2, text, two, twolength, link,per):
+def check_two(text2, text, two, twolength, link,per):
     lengthOfwords = 0
     text = get_ngrams(text, 2)
     text2 = get_ngrams(text2,2)
@@ -78,7 +78,7 @@ def foo2(text2, text, two, twolength, link,per):
                 two.append(f'{txt2},{txt1},{value},{link}')
     twolength.append(lengthOfwords)
 
-def foo3(text2, text, three, tl, link,per):
+def check_three(text2, text, three, tl, link,per):
     lengthOfwords = 0
     text = get_ngrams(text, 3)
     text2 = get_ngrams(text2,3)
@@ -93,7 +93,7 @@ def foo3(text2, text, three, tl, link,per):
                 three.append(f'{txt2},{txt1},{value},{link}')
     tl.append(lengthOfwords)
 
-def foo4(text2, text, four, fl, link,per):
+def check_four(text2, text, four, fl, link,per):
     lengthOfwords = 0
     text = get_ngrams(text, 4)
     text2 = get_ngrams(text2,4)
@@ -108,7 +108,7 @@ def foo4(text2, text, four, fl, link,per):
                 four.append(f'{txt2},{txt1},{value},{link}')
     fl.append(lengthOfwords)
 
-def foo5(text2, text, five, fv, link,per):
+def check_five(text2, text, five, fv, link,per):
     lengthOfwords = 0
     text = get_ngrams(text, 5)
     text2 = get_ngrams(text2,5)
@@ -306,20 +306,20 @@ def run(filename,urls,per,min,max):
             max=int(max)
     
             if min==1 and max==1:
-                p=Process(target=foo1, args=(urlText, text, one, oneLength,link, per))
+                p=Process(target=check_one, args=(urlText, text, one, oneLength,link, per))
                 p.start()
                 p.join()
             elif min==1 and max==2:
-                p=Process(target=foo1, args=(urlText, text, one, oneLength,link, per))
-                p0=Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
+                p=Process(target=check_one, args=(urlText, text, one, oneLength,link, per))
+                p0=Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
                 p.start()
                 p0.start()
                 p.join()
                 p0.join()
             elif min==1 and max==3:
-                p=Process(target=foo1, args=(urlText, text, one, oneLength,link, per))
-                p0=Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
-                p1 = Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
+                p=Process(target=check_one, args=(urlText, text, one, oneLength,link, per))
+                p0=Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
+                p1 = Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
                 p.start()
                 p0.start()
                 p1.start()
@@ -327,10 +327,10 @@ def run(filename,urls,per,min,max):
                 p0.join()
                 p1.join()
             elif min==1 and max==4:
-                p=Process(target=foo1, args=(urlText, text, one, oneLength,link, per))
-                p0=Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
-                p1=Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
+                p=Process(target=check_one, args=(urlText, text, one, oneLength,link, per))
+                p0=Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
+                p1=Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
                 p.start()
                 p0.start()
                 p1.start()
@@ -340,11 +340,11 @@ def run(filename,urls,per,min,max):
                 p1.join()
                 p2.join()
             elif min==1 and max==5:
-                p=Process(target=foo1, args=(urlText, text, one, oneLength,link, per))
-                p0=Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
-                p1=Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
-                p3 = Process(target=foo5, args=(urlText, text, five, fifteenLength, link,per))
+                p=Process(target=check_one, args=(urlText, text, one, oneLength,link, per))
+                p0=Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
+                p1=Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
+                p3 = Process(target=check_five, args=(urlText, text, five, fifteenLength, link,per))
                 p.start()
                 p0.start()
                 p1.start()
@@ -357,34 +357,34 @@ def run(filename,urls,per,min,max):
                 p3.join()
                 
             if min==2 and max ==2:
-                p0 = Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
+                p0 = Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
                 p0.start()
                 p0.join()
             elif min==3 and max==3:
-                p1 = Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
+                p1 = Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
                 p1.start()
                 p1.join()
             elif min==4 and max==4:
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
                 p2.start()
                 p2.join()
             elif min==5 and max==5:
-                p3 = Process(target=foo5, args=(urlText, text, five, fifteenLength, link,per))
+                p3 = Process(target=check_five, args=(urlText, text, five, fifteenLength, link,per))
                 p3.start()
                 p3.join()
     
             elif min==2 and max==3:
-                p0 = Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
-                p1 = Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
+                p0 = Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
+                p1 = Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
                 p0.start()
                 p1.start()
                 p0.join()
                 p1.join()
     
             elif min==2 and max==4:
-                p0 = Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
-                p1 = Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
+                p0 = Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
+                p1 = Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
                 p0.start()
                 p1.start()
                 p2.start()
@@ -392,10 +392,10 @@ def run(filename,urls,per,min,max):
                 p1.join()
                 p2.join()
             elif min==2 and max==5:
-                p0 = Process(target=foo2, args=(urlText, text, two, twoLength, link,per))
-                p1 = Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
-                p3 = Process(target=foo5, args=(urlText, text, five, fifteenLength, link,per))
+                p0 = Process(target=check_two, args=(urlText, text, two, twoLength, link,per))
+                p1 = Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
+                p3 = Process(target=check_five, args=(urlText, text, five, fifteenLength, link,per))
                 p0.start()
                 p1.start()
                 p2.start()
@@ -405,17 +405,17 @@ def run(filename,urls,per,min,max):
                 p2.join()
                 p3.join()
             elif min==3 and max==4:
-                p1 = Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
+                p1 = Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
                 p1.start()
                 p2.start()
                 p1.join()
                 p2.join()
     
             elif min==3 and max==5:
-                p1 = Process(target=foo3, args=(urlText, text, three, threeLength, link,per))
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
-                p3 = Process(target=foo5, args=(urlText, text, five, fifteenLength, link,per))
+                p1 = Process(target=check_three, args=(urlText, text, three, threeLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
+                p3 = Process(target=check_five, args=(urlText, text, five, fifteenLength, link,per))
                 p1.start()
                 p2.start()
                 p3.start()
@@ -423,8 +423,8 @@ def run(filename,urls,per,min,max):
                 p2.join()
                 p3.join()
             elif min==4 and max==5:
-                p2 = Process(target=foo4, args=(urlText, text, four, fourLength, link,per))
-                p3 = Process(target=foo5, args=(urlText, text, five, fifteenLength, link,per))
+                p2 = Process(target=check_four, args=(urlText, text, four, fourLength, link,per))
+                p3 = Process(target=check_five, args=(urlText, text, five, fifteenLength, link,per))
                 p2.start()
                 p3.start()
                 p2.join()
