@@ -49,7 +49,7 @@ def preprocess(text):
     return text
 
 
-def foo1(text2,text,one,onelength,per):
+def check_one(text2,text,one,onelength,per):
     text=text.split(' ')
     text2=text2.split(' ')
     lengthOfwords = 0
@@ -65,7 +65,7 @@ def foo1(text2,text,one,onelength,per):
 
     onelength.append(lengthOfwords)
 
-def foo2(text2, text, two, twolength, outlier,per):
+def check_two(text2, text, two, twolength, outlier,per):
     lengthOfwords = 0
     text = get_ngrams(text, 2)
     text2 = get_ngrams(text2,2)
@@ -80,7 +80,7 @@ def foo2(text2, text, two, twolength, outlier,per):
                two.append(f'{txt2},{txt1},{value}')    
     twolength.append(lengthOfwords)
 
-def foo3(text2, text, three, tl, outlier,per):
+def check_three(text2, text, three, tl, outlier,per):
     lengthOfwords = 0
     text = get_ngrams(text, 3)
     text2 = get_ngrams(text2,3)
@@ -95,7 +95,7 @@ def foo3(text2, text, three, tl, outlier,per):
                three.append(f'{txt2},{txt1},{value}')    
     tl.append(lengthOfwords)
 
-def foo4(text2, text, four, fl, outlier,per):
+def check_four(text2, text, four, fl, outlier,per):
     lengthOfwords = 0
     text = get_ngrams(text, 4)
     text2 = get_ngrams(text2,4)
@@ -110,7 +110,7 @@ def foo4(text2, text, four, fl, outlier,per):
                four.append(f'{txt2},{txt1},{value}')    
     fl.append(lengthOfwords)
 
-def foo5(text2, text, five, fv, outlier,per):
+def check_five(text2, text, five, fv, outlier,per):
     lengthOfwords = 0
     text = get_ngrams(text, 5)
     text2 = get_ngrams(text2,5)
@@ -304,20 +304,20 @@ def run2(filename,filename2,per,min,max):
         
         
         if min==1 and max==1:
-            p=Process(target=foo1, args=(text2, text, one, oneLength, per))
+            p=Process(target=check_one, args=(text2, text, one, oneLength, per))
             p.start()
             p.join()
         elif min==1 and max==2:
-            p=Process(target=foo1, args=(text2, text, one, oneLength, per))
-            p0=Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
+            p=Process(target=check_one, args=(text2, text, one, oneLength, per))
+            p0=Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
             p.start()
             p0.start()
             p.join()
             p0.join()
         elif min==1 and max==3:
-            p=Process(target=foo1, args=(text2, text, one, oneLength, per))
-            p0=Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
-            p1 = Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
+            p=Process(target=check_one, args=(text2, text, one, oneLength, per))
+            p0=Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
+            p1 = Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
             p.start()
             p0.start()
             p1.start()
@@ -325,10 +325,10 @@ def run2(filename,filename2,per,min,max):
             p0.join()
             p1.join()
         elif min==1 and max==4:
-            p=Process(target=foo1, args=(text2, text, one, oneLength, per))
-            p0=Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
-            p1=Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
+            p=Process(target=check_one, args=(text2, text, one, oneLength, per))
+            p0=Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
+            p1=Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
             p.start()
             p0.start()
             p1.start()
@@ -338,11 +338,11 @@ def run2(filename,filename2,per,min,max):
             p1.join()
             p2.join()
         elif min==1 and max==5:
-            p=Process(target=foo1, args=(text2, text, one, oneLength, per))
-            p0=Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
-            p1=Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
-            p3 = Process(target=foo5, args=(text2, text, five, fifteenLength, outlier,per))
+            p=Process(target=check_one, args=(text2, text, one, oneLength, per))
+            p0=Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
+            p1=Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
+            p3 = Process(target=check_five, args=(text2, text, five, fifteenLength, outlier,per))
             p.start()
             p0.start()
             p1.start()
@@ -355,34 +355,34 @@ def run2(filename,filename2,per,min,max):
             p3.join()
             
         if min==2 and max ==2:
-            p0 = Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
+            p0 = Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
             p0.start()    
             p0.join()
         elif min==3 and max==3:
-            p1 = Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
+            p1 = Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
             p1.start()    
             p1.join()
         elif min==4 and max==4:
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
             p2.start()
             p2.join()
         elif min==5 and max==5:
-            p3 = Process(target=foo5, args=(text2, text, five, fifteenLength, outlier,per))
+            p3 = Process(target=check_five, args=(text2, text, five, fifteenLength, outlier,per))
             p3.start()
             p3.join()
 
         elif min==2 and max==3:
-             p0 = Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
-             p1 = Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
+             p0 = Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
+             p1 = Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
              p0.start()
              p1.start()
              p0.join()
              p1.join()
 
         elif min==2 and max==4:
-            p0 = Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
-            p1 = Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
+            p0 = Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
+            p1 = Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
             p0.start()
             p1.start()
             p2.start()
@@ -390,10 +390,10 @@ def run2(filename,filename2,per,min,max):
             p1.join()
             p2.join()
         elif min==2 and max==5:
-            p0 = Process(target=foo2, args=(text2, text, two, twoLength, outlier,per))
-            p1 = Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
-            p3 = Process(target=foo5, args=(text2, text, five, fifteenLength, outlier,per))
+            p0 = Process(target=check_two, args=(text2, text, two, twoLength, outlier,per))
+            p1 = Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
+            p3 = Process(target=check_five, args=(text2, text, five, fifteenLength, outlier,per))
             p0.start()
             p1.start()
             p2.start()
@@ -403,17 +403,17 @@ def run2(filename,filename2,per,min,max):
             p2.join()
             p3.join()
         elif min==3 and max==4:
-            p1 = Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
+            p1 = Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
             p1.start()
             p2.start()
             p1.join()
             p2.join()
 
         elif min==3 and max==5:
-            p1 = Process(target=foo3, args=(text2, text, three, threeLength, outlier,per))
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
-            p3 = Process(target=foo5, args=(text2, text, five, fifteenLength, outlier,per))
+            p1 = Process(target=check_three, args=(text2, text, three, threeLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
+            p3 = Process(target=check_five, args=(text2, text, five, fifteenLength, outlier,per))
             p1.start()
             p2.start()
             p3.start()
@@ -421,52 +421,15 @@ def run2(filename,filename2,per,min,max):
             p2.join()
             p3.join()
         elif min==4 and max==5:
-            p2 = Process(target=foo4, args=(text2, text, four, fourLength, outlier,per))
-            p3 = Process(target=foo5, args=(text2, text, five, fifteenLength, outlier,per))
+            p2 = Process(target=check_four, args=(text2, text, four, fourLength, outlier,per))
+            p3 = Process(target=check_five, args=(text2, text, five, fifteenLength, outlier,per))
             p2.start()
             p3.start()
             p2.join()
             p3.join()
 
 
-        #p0 = Process(target=foo2, args=(dbElements, text, two, twoLength, outlier,per))
-        #p1 = Process(target=foo3, args=(dbElements, text, three, threeLength, outlier,per))
-        #p2 = Process(target=foo4, args=(dbElements, text, four, fourLength, outlier,per))
-        #p3 = Process(target=foo5, args=(dbElements, text, five, fifteenLength, outlier,per))
-
-
-        #p0.start()
-        #p1.start()
-        #p2.start()
-        #p3.start()
-        #p0.join()
-       # p1.join()
-        #p2.join()
-       # p3.join()
-
-
-
-
-
-
-        # ranges = divide_into_intervals(len(text), 5)
-        # process = []
-        # for i in ranges:
-        #     lower = i[0]
-        #     upper = i[1]
-        #     p0 = Process(target=foo2, args=(dbElements, text[lower:upper], two, twoLength))
-        #     p1 = Process(target=foo3, args=(dbElements, text[lower:upper], three, threeLength))
-        #     p2 = Process(target=foo4, args=(dbElements, text[lower:upper], four, fourLength))
-        #     process.append(p0)
-        #     process.append(p1)
-        #     process.append(p2)
-
-        # for i in process:
-        #     i.start()
-        #
-        # for i in process:
-        #     i.join()
-
+    
         BigList1.clear()
         outlierList1.clear()
         for i in one:
